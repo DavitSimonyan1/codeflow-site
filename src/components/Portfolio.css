@@ -1,0 +1,145 @@
+.portfolio {
+  padding: var(--section-padding);
+  background: var(--black);
+  position: relative;
+}
+
+.portfolio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.portfolio-item {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--black-lighter);
+  transition: all 0.4s ease;
+}
+
+.portfolio-item:hover {
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.portfolio-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.portfolio-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.portfolio-item:hover .portfolio-image img {
+  transform: scale(1.1);
+}
+
+.portfolio-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 10, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-overlay {
+  opacity: 1;
+}
+
+.view-btn {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gold-gradient);
+  color: var(--black);
+  font-size: 24px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.view-btn:hover {
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+
+.portfolio-info {
+  padding: 25px;
+}
+
+.portfolio-category {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.portfolio-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-white);
+  font-family: var(--font-display);
+  transition: color 0.3s ease;
+}
+
+.portfolio-item:hover .portfolio-title {
+  color: var(--gold);
+}
+
+.portfolio-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.portfolio-item:hover .portfolio-accent {
+  transform: scaleX(1);
+}
+
+@media (max-width: 1024px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portfolio-image {
+    height: 200px;
+  }
+
+  .portfolio-info {
+    padding: 20px;
+  }
+}

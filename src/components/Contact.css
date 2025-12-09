@@ -1,0 +1,239 @@
+.contact {
+  padding: var(--section-padding);
+  background: linear-gradient(180deg, var(--black-light) 0%, var(--black) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.contact-glow {
+  position: absolute;
+  bottom: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.contact-info {
+  position: sticky;
+  top: 120px;
+}
+
+.info-items {
+  margin-bottom: 40px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  color: var(--gold);
+  font-size: 22px;
+  transition: all 0.3s ease;
+}
+
+.info-item:hover .info-icon {
+  background: var(--gold-gradient);
+  color: var(--black);
+  transform: rotate(10deg);
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-size: 12px;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.info-value {
+  font-size: 16px;
+  color: var(--text-white);
+  font-weight: 500;
+}
+
+.social-links h4 {
+  font-size: 14px;
+  color: var(--text-gray);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  font-family: var(--font-primary);
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black-lighter);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  color: var(--text-gray);
+  font-size: 22px;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background: var(--gold-gradient);
+  color: var(--black);
+  border-color: transparent;
+}
+
+.contact-form {
+  padding: 40px;
+  background: var(--black-lighter);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 24px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 18px 20px;
+  background: var(--black-light);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  color: var(--text-white);
+  font-size: 16px;
+  font-family: var(--font-primary);
+  transition: all 0.3s ease;
+  resize: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--gray-light);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.input-line {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  height: 2px;
+  background: var(--gold-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.form-group input:focus ~ .input-line,
+.form-group textarea:focus ~ .input-line {
+  transform: scaleX(1);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 18px 32px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+@media (max-width: 968px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .contact-info {
+    position: static;
+  }
+
+  .info-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .info-item {
+    flex-direction: column;
+    text-align: center;
+    border-bottom: none;
+    padding: 0;
+  }
+
+  .social-links {
+    text-align: center;
+  }
+
+  .social-icons {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .info-items {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item {
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .contact-form {
+    padding: 25px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 15px;
+  }
+}
