@@ -7,14 +7,12 @@ import Pricing from './components/Pricing';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CustomCursor from './components/CustomCursor';
 import './index.css';
 
 function App() {
   return (
     <LanguageProvider>
       <div className="app">
-        <CustomCursor />
         <Header />
         <main>
           <Hero />

@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { HiMail, HiPhone, HiLocationMarker, HiPaperAirplane } from 'react-icons/hi';
+import { useState, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import emailjs from '@emailjs/browser';
+import { HiMail, HiPhone, HiPaperAirplane, HiCheck, HiX } from 'react-icons/hi';
 import { FaTelegram, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import './Contact.css';
@@ -10,6 +9,7 @@ import './Contact.css';
 const Contact = () => {
   const { t } = useLanguage();
   const ref = useRef(null);
+  const formRef = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const [formData, setFormData] = useState({
@@ -17,6 +17,8 @@ const Contact = () => {
     email: '',
     message: '',
   });
+  const [status, setStatus] = useState({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -25,22 +27,55 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add form submission logic here
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      await emailjs.sendForm(
+        'service_n9p0y61',
+        'template_b1fzfaj',
+        formRef.current,
+        'nunU2L_4PRTGGdoQC'
+      );
+
+      setStatus({
+        type: 'success',
+        message: t.contact.form.success || 'Message sent successfully!'
+      });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: t.contact.form.error || 'Failed to send message. Please try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setStatus({ type: '', message: '' }), 5000);
+    }
   };
 
   const contactInfo = [
-    { icon: HiMail, text: 'hello@codeflow.dev', label: 'Email' },
-    { icon: HiPhone, text: '+1 (555) 123-4567', label: 'Phone' },
-    { icon: HiLocationMarker, text: 'Worldwide', label: 'Location' },
+    {
+      icon: HiMail,
+      text: 'hello.codeflow@gmail.com',
+      label: 'Email',
+      href: 'mailto:hello.codeflow@gmail.com'
+    },
+    {
+      icon: HiPhone,
+      text: '+374 99 28 28 99',
+      label: 'Phone',
+      flag: '🇦🇲',
+      href: 'tel:+37499282899'
+    },
   ];
 
   const socialLinks = [
-    { icon: FaTelegram, href: '#', label: 'Telegram' },
-    { icon: FaInstagram, href: '#', label: 'Instagram' },
-    { icon: FaWhatsapp, href: '#', label: 'WhatsApp' },
+    { icon: FaTelegram, href: 'https://t.me/codeflow', label: 'Telegram' },
+    { icon: FaInstagram, href: 'https://instagram.com/codeflow', label: 'Instagram' },
+    { icon: FaWhatsapp, href: 'https://wa.me/37499282899', label: 'WhatsApp' },
   ];
 
   return (
@@ -72,15 +107,22 @@ const Contact = () => {
           >
             <div className="info-items">
               {contactInfo.map((item, index) => (
-                <div key={index} className="info-item">
+                <a
+                  key={index}
+                  href={item.href}
+                  className="info-item"
+                >
                   <div className="info-icon">
                     <item.icon />
                   </div>
                   <div className="info-text">
                     <span className="info-label">{item.label}</span>
-                    <span className="info-value">{item.text}</span>
+                    <span className="info-value">
+                      {item.flag && <span className="phone-flag">{item.flag}</span>}
+                      {item.text}
+                    </span>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
 
@@ -91,6 +133,8 @@ const Contact = () => {
                   <motion.a
                     key={index}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="social-icon"
                     whileHover={{ scale: 1.1, y: -5 }}
                     whileTap={{ scale: 0.95 }}
@@ -104,6 +148,7 @@ const Contact = () => {
           </motion.div>
 
           <motion.form
+            ref={formRef}
             className="contact-form"
             onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 50 }}
@@ -146,14 +191,32 @@ const Contact = () => {
               <div className="input-line"></div>
             </div>
 
+            {status.message && (
+              <motion.div
+                className={`form-status ${status.type}`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                {status.type === 'success' ? <HiCheck /> : <HiX />}
+                {status.message}
+              </motion.div>
+            )}
+
             <motion.button
               type="submit"
               className="btn-primary submit-btn"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              disabled={isSubmitting}
             >
-              {t.contact.form.submit}
-              <HiPaperAirplane />
+              {isSubmitting ? (
+                <span className="loading-spinner"></span>
+              ) : (
+                <>
+                  {t.contact.form.submit}
+                  <HiPaperAirplane />
+                </>
+              )}
             </motion.button>
           </motion.form>
         </div>
