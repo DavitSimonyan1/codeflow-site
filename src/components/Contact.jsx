@@ -74,7 +74,7 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: FaTelegram, href: 'https://t.me/codeflow', label: 'Telegram' },
-    { icon: FaInstagram, href: 'https://instagram.com/codeflow', label: 'Instagram' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/codeflow___/', label: 'Instagram' },
     { icon: FaWhatsapp, href: 'https://wa.me/37499282899', label: 'WhatsApp' },
   ];
 

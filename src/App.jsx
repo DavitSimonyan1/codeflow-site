@@ -5,6 +5,7 @@ import Services from './components/Services';
 import ParallaxSection from './components/ParallaxSection';
 import Pricing from './components/Pricing';
 import Portfolio from './components/Portfolio';
+import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import './index.css';
@@ -20,6 +21,7 @@ function App() {
           <ParallaxSection />
           <Pricing />
           <Portfolio />
+          <FAQ />
           <Contact />
         </main>
         <Footer />

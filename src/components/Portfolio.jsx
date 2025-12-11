@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useState, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { HiX, HiExternalLink, HiCode } from 'react-icons/hi';
 import { useLanguage } from '../context/LanguageContext';
 import './Portfolio.css';
@@ -171,8 +169,16 @@ const Portfolio = () => {
                 whileHover={{ y: -10 }}
                 onClick={() => setSelectedProject(project)}
               >
-                <div className="portfolio-image">
-                  <img src={project.image} alt={project.title} />
+                <div className="portfolio-image" id={`img-container-${project.id}`}>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    onLoad={(e) => {
+                      e.target.classList.add('loaded');
+                      e.target.parentElement.classList.add('loaded');
+                    }}
+                  />
                   <div className="portfolio-overlay">
                     <span className="project-type">{project.type}</span>
                     <motion.div
