@@ -23,12 +23,6 @@ const ParallaxSection = () => {
       titleEnd: 'Into Reality',
       subtitle: 'Every pixel matters. Every line of code counts.'
     },
-    ru: {
-      title: 'Превращаем',
-      highlight: 'идеи',
-      titleEnd: 'в реальность',
-      subtitle: 'Каждый пиксель важен. Каждая строка кода имеет значение.'
-    },
     am: {
       title: '\u054C\u056B\u0580\u0561\u056F\u0561\u0576\u0578\u0582\u0569\u0575\u0578\u0582\u0576',
       highlight: '\u0564\u0561\u0580\u0571\u0576\u0578\u0582\u0574',

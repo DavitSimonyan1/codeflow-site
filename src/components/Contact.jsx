@@ -1,16 +1,14 @@
 import { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import { HiMail, HiPhone, HiPaperAirplane, HiCheck, HiX } from 'react-icons/hi';
-import { FaTelegram, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import './Contact.css';
 
 const Contact = () => {
   const { t } = useLanguage();
-  const ref = useRef(null);
   const formRef = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const [formData, setFormData] = useState({
     name: '',
@@ -73,38 +71,27 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: FaTelegram, href: 'https://t.me/codeflow', label: 'Telegram' },
     { icon: FaInstagram, href: 'https://www.instagram.com/codeflow___/', label: 'Instagram' },
     { icon: FaWhatsapp, href: 'https://wa.me/37499282899', label: 'WhatsApp' },
   ];
 
   return (
-    <section id="contact" className="contact" ref={ref}>
+    <section id="contact" className="contact">
       <div className="contact-bg">
         <div className="contact-glow"></div>
       </div>
 
       <div className="container">
-        <motion.div
-          className="section-header"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="section-header">
           <h2 className="section-title">
             {t.contact.title.split(' ')[0]}{' '}
             <span className="gold-text">{t.contact.title.split(' ').slice(1).join(' ')}</span>
           </h2>
           <p className="section-subtitle">{t.contact.subtitle}</p>
-        </motion.div>
+        </div>
 
         <div className="contact-content">
-          <motion.div
-            className="contact-info"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <div className="contact-info">
             <div className="info-items">
               {contactInfo.map((item, index) => (
                 <a
@@ -130,30 +117,25 @@ const Contact = () => {
               <h4>Follow Us</h4>
               <div className="social-icons">
                 {socialLinks.map((social, index) => (
-                  <motion.a
+                  <a
                     key={index}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-icon"
-                    whileHover={{ scale: 1.1, y: -5 }}
-                    whileTap={{ scale: 0.95 }}
                     aria-label={social.label}
                   >
                     <social.icon />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.form
+          <form
             ref={formRef}
             className="contact-form"
             onSubmit={handleSubmit}
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
           >
             <div className="form-group">
               <input
@@ -202,11 +184,9 @@ const Contact = () => {
               </motion.div>
             )}
 
-            <motion.button
+            <button
               type="submit"
               className="btn-primary submit-btn"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -217,8 +197,8 @@ const Contact = () => {
                   <HiPaperAirplane />
                 </>
               )}
-            </motion.button>
-          </motion.form>
+            </button>
+          </form>
         </div>
       </div>
     </section>

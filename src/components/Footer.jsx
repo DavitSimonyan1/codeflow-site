@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-scroll';
-import { FaTelegram, FaInstagram, FaWhatsapp, FaGithub } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { HiHeart } from 'react-icons/hi';
 import { useLanguage } from '../context/LanguageContext';
 import './Footer.css';
@@ -17,10 +17,8 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: FaTelegram, href: '#', label: 'Telegram' },
-    { icon: FaInstagram, href: '#', label: 'Instagram' },
-    { icon: FaWhatsapp, href: '#', label: 'WhatsApp' },
-    { icon: FaGithub, href: '#', label: 'GitHub' },
+    { icon: FaInstagram, href: 'https://www.instagram.com/codeflow___/', label: 'Instagram' },
+    { icon: FaWhatsapp, href: 'https://wa.me/37499282899', label: 'WhatsApp' },
   ];
 
   return (
@@ -36,7 +34,6 @@ const Footer = () => {
             </div>
 
             <nav className="footer-nav">
-              <h4>Navigation</h4>
               <ul>
                 {navLinks.map((link) => (
                   <li key={link.id}>

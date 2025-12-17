@@ -57,11 +57,6 @@ const Hero = () => {
         initial="hidden"
         animate="visible"
       >
-        <motion.div className="hero-badge" variants={itemVariants}>
-          <span className="badge-dot"></span>
-          Frontend Development Agency
-        </motion.div>
-
         <motion.h1 className="hero-title" variants={itemVariants}>
           {t.hero.title}{' '}
           <span className="gold-text">{t.hero.titleHighlight}</span>

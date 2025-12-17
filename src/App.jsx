@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { LanguageProvider } from './context/LanguageContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -11,6 +12,11 @@ import Footer from './components/Footer';
 import './index.css';
 
 function App() {
+  // Scroll to top on page load/refresh
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <LanguageProvider>
       <div className="app">

@@ -1,66 +1,30 @@
-import { motion } from 'framer-motion';
-import { useInView } from 'framer-motion';
-import { useRef } from 'react';
 import { HiCheck, HiStar } from 'react-icons/hi';
 import { useLanguage } from '../context/LanguageContext';
 import './Pricing.css';
 
 const Pricing = () => {
   const { t } = useLanguage();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  };
 
   return (
-    <section id="pricing" className="pricing" ref={ref}>
+    <section id="pricing" className="pricing">
       <div className="pricing-bg">
         <div className="pricing-glow"></div>
       </div>
 
       <div className="container">
-        <motion.div
-          className="section-header"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="section-header">
           <h2 className="section-title">
             {t.pricing.title.split(' ')[0]}{' '}
             <span className="gold-text">{t.pricing.title.split(' ').slice(1).join(' ') || t.pricing.title}</span>
           </h2>
           <p className="section-subtitle">{t.pricing.subtitle}</p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="pricing-grid"
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-        >
+        <div className="pricing-grid">
           {t.pricing.plans.map((plan, index) => (
-            <motion.div
+            <div
               key={index}
               className={`pricing-card ${index === 1 ? 'featured' : ''}`}
-              variants={cardVariants}
-              whileHover={{ y: -10, transition: { duration: 0.3 } }}
             >
               {index === 1 && (
                 <div className="featured-badge">
@@ -95,9 +59,9 @@ const Pricing = () => {
               <div className="card-decoration">
                 <div className="decoration-circle"></div>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

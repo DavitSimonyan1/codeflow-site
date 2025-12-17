@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-scroll';
 import { HiMenu, HiX } from 'react-icons/hi';
@@ -9,14 +9,35 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { language, changeLanguage, t } = useLanguage();
+  const scrolledRef = useRef(false);
+
+  const handleScroll = useCallback(() => {
+    const scrollY = window.scrollY;
+    const shouldBeScrolled = scrollY > 50;
+
+    if (shouldBeScrolled !== scrolledRef.current) {
+      scrolledRef.current = shouldBeScrolled;
+      setIsScrolled(shouldBeScrolled);
+    }
+  }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+    // Use requestAnimationFrame for smoother updates
+    let ticking = false;
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [handleScroll]);
 
   const navItems = [
     { id: 'home', label: t.nav.home },
@@ -28,7 +49,6 @@ const Header = () => {
 
   const languages = [
     { code: 'en', label: 'EN' },
-    { code: 'ru', label: 'RU' },
     { code: 'am', label: 'AM' },
   ];
 
@@ -49,8 +69,8 @@ const Header = () => {
             <Link
               key={item.id}
               to={item.id}
-              smooth={true}
-              duration={500}
+              smooth="easeInOutQuart"
+              duration={800}
               offset={-80}
               className="nav-link"
               activeClass="active"
@@ -101,8 +121,8 @@ const Header = () => {
               >
                 <Link
                   to={item.id}
-                  smooth={true}
-                  duration={500}
+                  smooth="easeInOutQuart"
+                  duration={800}
                   offset={-80}
                   className="mobile-nav-link"
                   onClick={() => setIsMobileMenuOpen(false)}
